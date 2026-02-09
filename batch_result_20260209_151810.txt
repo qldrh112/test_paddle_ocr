@@ -1,0 +1,39 @@
+================================================================================
+Batch Processing Result Summary
+================================================================================
+Processing Time: 2026-02-09 15:29:26
+Total Images: 11
+Success: 2
+Failed: 9
+Success Rate: 18.2%
+
+================================================================================
+Individual Results
+================================================================================
+
+[ 1] bank_audit_letter-0001.jpg          | ERROR: At least one sheet must be visible
+
+[ 2] bank_audit_letter-0002.jpg          | SUCCESS
+      Output: image\bank_audit_letter-0002.xlsx
+      Sheets: 0, Rows: 0
+
+[ 3] bank_audit_letter-0003.jpg          | ERROR: At least one sheet must be visible
+
+[ 4] bank_audit_letter-0004.jpg          | ERROR: At least one sheet must be visible
+
+[ 5] bank_audit_letter-0005.jpg          | ERROR: At least one sheet must be visible
+
+[ 6] bank_audit_letter-0006.jpg          | ERROR: At least one sheet must be visible
+
+[ 7] bank_audit_letter-0007.jpg          | ERROR: At least one sheet must be visible
+
+[ 8] bank_audit_letter-0008.jpg          | ERROR: At least one sheet must be visible
+
+[ 9] bank_audit_letter-0009.jpg          | ERROR: At least one sheet must be visible
+
+[10] bank_audit_letter-0010.jpg          | ERROR: At least one sheet must be visible
+
+[11] bank_audit_letter-0011.jpg          | SUCCESS
+      Output: image\bank_audit_letter-0011.xlsx
+      Sheets: 0, Rows: 0
+

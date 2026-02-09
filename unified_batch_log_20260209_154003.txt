@@ -1,0 +1,98 @@
+================================================================================
+Unified Batch Processing Started: 11 images
+Timestamp: 2026-02-09 15:40:03
+Output: all_results_20260209_154003.xlsx
+================================================================================
+
+[1/11] Processing: bank_audit_letter-0001.jpg
+--------------------------------------------------------------------------------
+  OCR: 158 tokens extracted
+  Grouped: 23 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 2 rows
+
+[2/11] Processing: bank_audit_letter-0002.jpg
+--------------------------------------------------------------------------------
+  OCR: 65 tokens extracted
+  Grouped: 16 rows
+  [FAILED] No tables detected
+
+[3/11] Processing: bank_audit_letter-0003.jpg
+--------------------------------------------------------------------------------
+  OCR: 315 tokens extracted
+  Grouped: 37 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 25 rows
+
+[4/11] Processing: bank_audit_letter-0004.jpg
+--------------------------------------------------------------------------------
+  OCR: 336 tokens extracted
+  Grouped: 41 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 34 rows
+
+[5/11] Processing: bank_audit_letter-0005.jpg
+--------------------------------------------------------------------------------
+  OCR: 250 tokens extracted
+  Grouped: 38 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 22 rows
+
+[6/11] Processing: bank_audit_letter-0006.jpg
+--------------------------------------------------------------------------------
+  OCR: 203 tokens extracted
+  Grouped: 28 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 24 rows
+
+[7/11] Processing: bank_audit_letter-0007.jpg
+--------------------------------------------------------------------------------
+  OCR: 70 tokens extracted
+  Grouped: 8 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 6 rows
+
+[8/11] Processing: bank_audit_letter-0008.jpg
+--------------------------------------------------------------------------------
+  OCR: 166 tokens extracted
+  Grouped: 27 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 11 rows
+
+[9/11] Processing: bank_audit_letter-0009.jpg
+--------------------------------------------------------------------------------
+  OCR: 244 tokens extracted
+  Grouped: 35 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 25 rows
+
+[10/11] Processing: bank_audit_letter-0010.jpg
+--------------------------------------------------------------------------------
+  OCR: 57 tokens extracted
+  Grouped: 7 rows
+  [SUCCESS] 1 table(s) detected
+    - 금융상품_내역: 3 rows
+
+[11/11] Processing: bank_audit_letter-0011.jpg
+--------------------------------------------------------------------------------
+  OCR: 78 tokens extracted
+  Grouped: 12 rows
+  [FAILED] No tables detected
+
+================================================================================
+Creating unified Excel file...
+================================================================================
+[SUCCESS] Created all_results_20260209_154003.xlsx
+          Total sheets: 9
+          Images with data: 9
+
+================================================================================
+Batch Processing Completed
+================================================================================
+Total images: 11
+Success: 9
+Failed: 2
+Total sheets created: 9
+Output file: all_results_20260209_154003.xlsx
+Log file: unified_batch_log_20260209_154003.txt
+
