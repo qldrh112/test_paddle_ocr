@@ -26,6 +26,30 @@ class Config:
     # OCR 언어 설정
     OCR_LANG: str = os.getenv("OCR_LANG", "korean")
     
+    # ==================== PP-Structure 설정 ====================
+    
+    # PP-Structure 사용 여부 (표 구조 인식 엔진)
+    # True: PP-Structure 사용 (Layout Analysis + Table Structure Recognition)
+    # False: 기존 PaddleOCR 사용 (Text-only OCR)
+    USE_PP_STRUCTURE: bool = os.getenv("USE_PP_STRUCTURE", "True").lower() == "true"
+    
+    # Layout Analysis 활성화 여부
+    # 문서 내 표 영역 자동 감지 (표 영역만 집중 처리)
+    ENABLE_LAYOUT_ANALYSIS: bool = os.getenv("ENABLE_LAYOUT_ANALYSIS", "True").lower() == "true"
+    
+    # Layout Analysis 언어 설정 (영어/중국어만 지원)
+    # PP-Structure의 Layout 모델은 'en' 또는 'ch'만 지원
+    # OCR 언어와는 별도로 설정
+    LAYOUT_LANG: str = os.getenv("LAYOUT_LANG", "en")
+    
+    # 표 구조 인식 모델 (SLANet / SLANet_plus)
+    TABLE_STRUCTURE_MODEL: str = os.getenv("TABLE_STRUCTURE_MODEL", "SLANet")
+    
+    # 오프라인 모델 로딩 경로 (선택사항)
+    # 모델을 미리 다운로드한 경우 해당 경로 지정
+    # 예: "./ppstructure_models" 또는 절대 경로
+    PPSTRUCTURE_MODEL_DIR: str = os.getenv("PPSTRUCTURE_MODEL_DIR", "")
+    
     # ==================== 좌표 정규화 설정 ====================
     
     # 페이지 높이 정규화 기준 (픽셀)
