@@ -1,47 +1,44 @@
 [tool.poetry]
-name = "audit-inquiry-automation-ocr-core"
+name = "audit-inquiry-automation"
 version = "0.1.0"
-description = "PaddleOCR Core Engine Dependencies"
-authors = ["qldrh112 <didie8520@gmail.com>"]
+description = "금융거래조회서 표 인식 및 데이터 추출 자동화"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-
-# [Core] NumPy 2.0 이상의 Breaking Changes를 피하기 위한 고정 (Paddle/OpenCV 호환성)
+# 여기에 파이썬 버전이 있어야 모든 그룹이 이 기준을 따릅니다.
+python = ">=3.10,<3.13" 
 numpy = "<2.0.0"
 
-# [Paddle Framework]
-# PaddlePaddle 프레임워크 (CPU 버전)
-paddlepaddle = "^2.6.0"
-# PaddleOCR 엔진
-paddleocr = "^2.7.0"
-
-# [Compatibility Layers]
-# PaddleOCR 내부에서 pydantic v1 구조를 참조하므로 버전 고정
-pydantic = "^1.10"
-# gRPC 및 Serialization 호환성 (4.x 버전 미지원 대응)
-protobuf = ">=3.20.0,<4.0.0"
-# pkg_resources 관련 임포트 에러 해결을 위한 필수 패키지
-setuptools = "^80.0.0"
-
-# [Image Processing]
-# Windows 경로 이슈 해결 및 GUI 의존성 제거를 위한 Headless 버전
-opencv-python-headless = "4.9.0.80"
+[tool.poetry.group.tesseract.dependencies]
+img2table = "^1.2.5"
+pytesseract = "^0.3.10"
+opencv-python = "^4.8.0"
 Pillow = "^10.0.0"
-
-# [PDF Processing]
-# PDF를 이미지로 변환
-pdf2image = "^1.16.0"
-
-# [Excel Output]
-# 엑셀 파일 생성
 pandas = "^2.0.0"
 openpyxl = "^3.1.0"
 
-# [Fuzzy Matching]
-# 퍼지 앵커 매칭을 위한 문자열 유사도 계산
-rapidfuzz = "^3.0.0"
+[tool.poetry.group.easyocr.dependencies]
+easyocr = "^1.7.2"
+
+# [Torch 설정] OS별 자동 분기 (Linux는 GPU/일반, 그 외는 CPU 강제)
+torch = [
+    {version = "^2.2.2", source = "pytorch_cpu", markers = "sys_platform != 'linux'"},
+    {version = "^2.2.2", markers = "sys_platform == 'linux'"}
+]
+torchvision = [
+    {version = "^0.17.2", source = "pytorch_cpu", markers = "sys_platform != 'linux'"},
+    {version = "^0.17.2", markers = "sys_platform == 'linux'"}
+]
+
+[tool.poetry.group.paddleocr.dependencies]
+
+
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
 
 [build-system]
 requires = ["poetry-core"]

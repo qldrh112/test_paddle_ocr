@@ -1,0 +1,137 @@
+{
+  "test_date": "2026-02-17T10:55:04.075239",
+  "tesseract": {
+    "avg_time": 3.102123802358454,
+    "avg_confidence": 0.8884439928038836,
+    "total_words": 4151
+  },
+  "easyocr": {
+    "init_time": 3.4439711570739746,
+    "avg_time": 24.62551084431735,
+    "avg_confidence": 0.7318656658865405,
+    "total_regions": 948
+  },
+  "comparison": [
+    {
+      "image": "bank_audit_letter-0001.jpg",
+      "tesseract_time": 3.315135955810547,
+      "tesseract_words": 390,
+      "tesseract_conf": 0.8696410256410255,
+      "easyocr_time": 22.470068216323853,
+      "easyocr_regions": 37,
+      "easyocr_conf": 0.6363312806500822,
+      "time_diff": 19.154932260513306,
+      "time_diff_pct": 577.802313867093
+    },
+    {
+      "image": "bank_audit_letter-0002.jpg",
+      "tesseract_time": 1.382986068725586,
+      "tesseract_words": 152,
+      "tesseract_conf": 0.9110526315789474,
+      "easyocr_time": 17.59915256500244,
+      "easyocr_regions": 44,
+      "easyocr_conf": 0.8019914159176689,
+      "time_diff": 16.216166496276855,
+      "time_diff_pct": 1172.5473497516837
+    },
+    {
+      "image": "bank_audit_letter-0003.jpg",
+      "tesseract_time": 4.999672889709473,
+      "tesseract_words": 472,
+      "tesseract_conf": 0.8922033898305085,
+      "easyocr_time": 36.86632752418518,
+      "easyocr_regions": 175,
+      "easyocr_conf": 0.7666565820797645,
+      "time_diff": 31.866654634475708,
+      "time_diff_pct": 637.3747910601298
+    },
+    {
+      "image": "bank_audit_letter-0004.jpg",
+      "tesseract_time": 5.3547351360321045,
+      "tesseract_words": 684,
+      "tesseract_conf": 0.8977923976608186,
+      "easyocr_time": 38.93116021156311,
+      "easyocr_regions": 210,
+      "easyocr_conf": 0.7886967546948862,
+      "time_diff": 33.576425075531006,
+      "time_diff_pct": 627.0417531876537
+    },
+    {
+      "image": "bank_audit_letter-0005.jpg",
+      "tesseract_time": 4.217868804931641,
+      "tesseract_words": 569,
+      "tesseract_conf": 0.8730931458699472,
+      "easyocr_time": 31.32683539390564,
+      "easyocr_regions": 113,
+      "easyocr_conf": 0.7497166005418965,
+      "time_diff": 27.108966588974,
+      "time_diff_pct": 642.7171598433195
+    },
+    {
+      "image": "bank_audit_letter-0006.jpg",
+      "tesseract_time": 4.313109636306763,
+      "tesseract_words": 522,
+      "tesseract_conf": 0.9015900383141763,
+      "easyocr_time": 25.852369785308838,
+      "easyocr_regions": 74,
+      "easyocr_conf": 0.6563646618738341,
+      "time_diff": 21.539260149002075,
+      "time_diff_pct": 499.390508594763
+    },
+    {
+      "image": "bank_audit_letter-0007.jpg",
+      "tesseract_time": 1.827744483947754,
+      "tesseract_words": 188,
+      "tesseract_conf": 0.9102127659574468,
+      "easyocr_time": 14.463340759277344,
+      "easyocr_regions": 23,
+      "easyocr_conf": 0.6649371640708879,
+      "time_diff": 12.63559627532959,
+      "time_diff_pct": 691.3218114622841
+    },
+    {
+      "image": "bank_audit_letter-0008.jpg",
+      "tesseract_time": 2.3954546451568604,
+      "tesseract_words": 339,
+      "tesseract_conf": 0.8441592920353981,
+      "easyocr_time": 23.55634117126465,
+      "easyocr_regions": 96,
+      "easyocr_conf": 0.8015510220704766,
+      "time_diff": 21.160886526107788,
+      "time_diff_pct": 883.3766303566196
+    },
+    {
+      "image": "bank_audit_letter-0009.jpg",
+      "tesseract_time": 3.10426926612854,
+      "tesseract_words": 460,
+      "tesseract_conf": 0.8851086956521739,
+      "easyocr_time": 29.771668195724487,
+      "easyocr_regions": 115,
+      "easyocr_conf": 0.781793291657181,
+      "time_diff": 26.667398929595947,
+      "time_diff_pct": 859.055598706292
+    },
+    {
+      "image": "bank_audit_letter-0010.jpg",
+      "tesseract_time": 1.6333937644958496,
+      "tesseract_words": 168,
+      "tesseract_conf": 0.9067261904761904,
+      "easyocr_time": 14.742916822433472,
+      "easyocr_regions": 27,
+      "easyocr_conf": 0.6969257840958485,
+      "time_diff": 13.109523057937622,
+      "time_diff_pct": 802.5941657726302
+    },
+    {
+      "image": "bank_audit_letter-0011.jpg",
+      "tesseract_time": 1.578991174697876,
+      "tesseract_words": 207,
+      "tesseract_conf": 0.8813043478260871,
+      "easyocr_time": 15.300438642501831,
+      "easyocr_regions": 34,
+      "easyocr_conf": 0.7055577670994184,
+      "time_diff": 13.721447467803955,
+      "time_diff_pct": 869.0008967548167
+    }
+  ]
+}
