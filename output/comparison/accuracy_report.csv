@@ -1,0 +1,21 @@
+﻿row_idx,account_number,matched_image,found_columns,total_columns,details
+2,352-1244-7439-83,bank_audit_letter-0003.jpg,1,7,"[""Col 0: Found '예금'"", ""Col 1: Missing '352-1244-7439-83'"", ""Col 2: Missing '350,000 KRW'"", ""Col 3: Missing '3.6%'"", ""Col 4: Missing '24.12.31'"", ""Col 5: Missing '26.01.03'""]"
+3,416-1241-7568-93,,0,7,['Account number not found in any image']
+4,786-7653-2796-14,,0,7,['Account number not found in any image']
+5,127-4372-8697-58,,0,7,['Account number not found in any image']
+6,579-6792-9206-94,,0,7,['Account number not found in any image']
+7,401-1239-1382-69,,0,7,['Account number not found in any image']
+8,260-4373-4269-92,bank_audit_letter-0003.jpg,2,7,"[""Col 0: Found '적금'"", ""Col 1: Missing '260-4373-4269-92'"", ""Col 2: Missing '1,294 USD'"", ""Col 3: Missing '2.5%'"", ""Col 4: Missing '25.03.14'"", ""Col 5: Missing '27.05.31'"", ""Col 6: Found '비고'""]"
+9,972-3259-0179-35,bank_audit_letter-0003.jpg,1,7,"[""Col 0: Found '적금'"", ""Col 1: Missing '972-3259-0179-35'"", ""Col 2: Missing '610,102,380 KRW'"", ""Col 3: Missing '2.5%'"", ""Col 4: Missing '25.07.19'"", ""Col 5: Missing '28.12.31'""]"
+10,296-9276-4926-84,,0,7,['Account number not found in any image']
+11,279-1092-3068-27,,0,7,['Account number not found in any image']
+12,018-1239-8510-93,,0,7,['Account number not found in any image']
+13,170-4683-5204-41,,0,7,['Account number not found in any image']
+14,276-2670-4393-59,,0,7,['Account number not found in any image']
+15,119-3259-0832-25,,0,7,['Account number not found in any image']
+16,209-3945-2035-83,,0,7,['Account number not found in any image']
+17,346-7832-1294-63,,0,7,['Account number not found in any image']
+18,623-3522-7273-26,,0,7,['Account number not found in any image']
+19,715-2368-0843-29,,0,7,['Account number not found in any image']
+20,792-1438-2085-03,bank_audit_letter-0003.jpg,1,7,"[""Col 0: Found '적금'"", ""Col 1: Missing '792-1438-2085-03'"", ""Col 2: Missing '380,204 KRW'"", ""Col 3: Missing '1.1%'"", ""Col 4: Missing '25.12.04'"", ""Col 5: Missing '27.01.31'""]"
+21,019-9248-7923-83,,0,7,['Account number not found in any image']
