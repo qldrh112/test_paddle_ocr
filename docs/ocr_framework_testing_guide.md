@@ -1,222 +1,52 @@
-# 다른 OCR 프레임워크 테스트 가이드
+# OCR 프레임워크 벤치마크 실행 가이드
 
-**작성일**: 2026-02-17
+이 프로젝트는 PaddleOCR, EasyOCR, Tesseract의 성능을 독립된 환경에서 테스트할 수 있도록 구성되어 있습니다.
 
----
+## 1. 사전 준비 (Virtual Environments)
+각 프레임워크는 의존성 충돌을 방지하기 위해 별도의 가상환경을 사용합니다. 프로젝트 루트에 아래 이름으로 가상환경이 구축되어 있어야 합니다.
 
-## 개요
+- **EasyOCR**: `.venv_easyocr`
+- **PaddleOCR**: `.venv_paddle`
+- **Tesseract**: `.venv_tesseract`
 
-다른 OCR 프레임워크(EasyOCR, PaddleOCR 등)는 의존성 충돌이 발생할 수 있으므로, 별도의 Poetry 가상 환경에서 테스트하는 것을 권장합니다.
+## 2. 테스트 데이터 준비
+- 원본 이미지: `test/image/tables/` (0003, 0004, 0006, 0009.jpg)
+- 정답 레이블: `test/assets/` (sheet1, 2, 5, 9_label.csv)
 
----
+## 3. 실행 단계
 
-## 방법 1: 별도 Poetry 프로젝트 생성
-
-### 1. 새 프로젝트 디렉토리 생성
-
+### 단계 1: 이미지 전처리 (표 영역 크롭)
+인식률 극대화를 위해 표 영역만 먼저 추출합니다.
 ```powershell
-mkdir ocr_comparison_test
-cd ocr_comparison_test
+.venv_paddle/Scripts/python scripts/preprocess_crops.py --inputs [원본이미지경로] --output_dir output/cropped
 ```
 
-### 2. Poetry 초기화
+### 단계 2: 프레임워크별 벤치마크 실행
+각 환경의 Python 인터프리터를 사용하여 스크립트를 호출합니다.
 
+**PaddleOCR 예시:**
 ```powershell
-poetry init
-# Python 버전: 3.10
-# 기본 의존성: 건너뛰기
+.venv_paddle/Scripts/python scripts/benchmark_paddle.py --inputs [이미지경로] --outputs [결과경로]
 ```
 
-### 3. 테스트할 OCR 프레임워크 설치
-
-#### EasyOCR 테스트
-
+**EasyOCR 예시:**
 ```powershell
-poetry add easyocr torch torchvision
-poetry add opencv-python pillow
+.venv_easyocr/Scripts/python scripts/benchmark_easyocr.py --inputs [이미지경로] --outputs [결과경로]
 ```
 
-#### PaddleOCR 테스트
-
+**Tesseract 예시:**
 ```powershell
-poetry add paddlepaddle paddleocr
-poetry add opencv-python pillow
+.venv_tesseract/Scripts/python scripts/benchmark_tesseract.py --inputs [이미지경로] --outputs [결과경로]
 ```
 
-### 4. 테스트 스크립트 작성
-
-```python
-# test_ocr.py
-import easyocr  # 또는 from paddleocr import PaddleOCR
-import time
-
-def test_easyocr(image_path):
-    reader = easyocr.Reader(['ko', 'en'], gpu=False)
-    start = time.time()
-    results = reader.readtext(image_path)
-    elapsed = time.time() - start
-    
-    print(f"처리 시간: {elapsed:.2f}초")
-    print(f"추출된 텍스트 영역: {len(results)}개")
-    
-    for bbox, text, confidence in results[:10]:
-        print(f"{confidence:.3f}: {text}")
-
-if __name__ == "__main__":
-    test_easyocr("path/to/test/image.jpg")
-```
-
-### 5. 실행
-
+### 단계 3: 정확도 비교 분석
+추출된 결과물과 정답지를 대조하여 성능 분석 리포트를 확인합니다.
 ```powershell
-poetry run python test_ocr.py
+# 이 스크립트는 베이스라인 환경 또는 모든 라이브러리가 설치된 환경에서 실행
+python scripts/compare_results.py --gt [정답CSV] --paddle [결과1] --easy [결과2] --tess [결과3]
 ```
 
----
-
-## 방법 2: Docker 컨테이너 사용
-
-### Dockerfile 예시
-
-```dockerfile
-FROM python:3.10-slim
-
-# 시스템 의존성 설치
-RUN apt-get update && apt-get install -y \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
-    libgomp1 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Poetry 설치
-RUN pip install poetry
-
-WORKDIR /app
-
-# 의존성 설치
-COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-root
-
-# 애플리케이션 복사
-COPY . .
-
-CMD ["poetry", "run", "python", "test_ocr.py"]
-```
-
-### 빌드 및 실행
-
-```powershell
-docker build -t ocr-test .
-docker run -v ${PWD}/test_images:/app/images ocr-test
-```
-
----
-
-## 방법 3: Conda 환경 사용
-
-### 1. Conda 환경 생성
-
-```powershell
-conda create -n ocr_test python=3.10
-conda activate ocr_test
-```
-
-### 2. 패키지 설치
-
-```powershell
-pip install easyocr torch torchvision
-# 또는
-pip install paddlepaddle paddleocr
-```
-
-### 3. 테스트
-
-```powershell
-python test_ocr.py
-```
-
----
-
-## 권장 테스트 항목
-
-### 1. 성능 측정
-
-- **초기화 시간**: OCR Reader 생성 시간
-- **처리 시간**: 이미지당 추출 시간
-- **메모리 사용량**: 프로세스 메모리
-
-### 2. 정확도 측정
-
-- **한국어 인식률**: 한글 텍스트 정확도
-- **숫자 인식률**: 금액, 계좌번호 등
-- **특수문자 인식**: %, ·, - 등
-
-### 3. 표 구조 인식
-
-- **표 감지율**: 표를 찾는 비율
-- **셀 분리 정확도**: 셀 경계 인식
-- **헤더 인식**: 첫 행 인식 품질
-
----
-
-## 비교 기준표
-
-| 항목 | Tesseract OCR | EasyOCR | PaddleOCR |
-|------|---------------|---------|-----------|
-| **초기화 시간** | < 1초 | 5-10초 | 3-5초 |
-| **처리 시간** | 5초/이미지 | ? | ? |
-| **한국어 정확도** | 85-90% | ? | ? |
-| **표 구조 인식** | ✓ (img2table) | ? | ✓ (내장) |
-| **설치 난이도** | 쉬움 | 어려움 | 보통 |
-| **의존성** | 적음 | 많음 (PyTorch) | 많음 |
-| **GPU 지원** | ❌ | ✓ | ✓ |
-
----
-
-## 현재 상황 요약
-
-### ✅ Tesseract OCR (현재 사용 중)
-
-**장점**:
-- 안정적이고 가볍다
-- 한국어 지원 양호 (85-90%)
-- 설치 및 관리 용이
-- img2table과 잘 통합됨
-
-**단점**:
-- GPU 가속 없음
-- 복잡한 레이아웃에서 정확도 낮을 수 있음
-
-### ⚠️ EasyOCR
-
-**상태**: 설치 성공, 실행 실패 (DLL 오류)
-
-**문제**:
-- PyTorch 의존성 복잡
-- Windows에서 DLL 문제
-- 초기화 시간 오래 걸림
-
-### 🔍 PaddleOCR
-
-**상태**: 미테스트
-
-**예상**:
-- 표 인식에 특화된 모델 제공
-- 한국어 지원 양호
-- 의존성 중간 정도
-
----
-
-## 최종 권장사항
-
-### 현재 시스템 유지
-
-**Tesseract OCR + 표 헤더 고정** 조합으로 실용적인 수준의 성능을 달성했으므로, 별도의 OCR 프레임워크 테스트는 **선택사항**입니다.
-
-### 추가 테스트가 필요한 경우
-
-1. **별도 Poetry 프로젝트** 생성 (의존성 격리)
-2. **소규모 테스트** 스크립트 작성
-3. **성능 비교** 후 필요시 통합
+## 4. 문제 해결 (Troubleshooting)
+- **Numpy/DLL 오류**: EasyOCR 실행 시 DLL 오류가 발생하면 CUDA 버전과 PyTorch 버전을 확인하세요.
+- **Tesseract Not Found**: 시스템 PATH에 Tesseract 설치 경로가 포함되어 있는지 확인하세요.
+- **표 감지 실패**: `preprocess_crops.py`가 표를 찾지 못할 경우, 원본 이미지의 해상도나 선명도를 확인하세요.

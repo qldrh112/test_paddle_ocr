@@ -13,25 +13,25 @@ def calculate_similarity(s1, s2):
     return SequenceMatcher(None, s1, s2).ratio()
 
 def compare_tables(gt_rows, pred_rows):
-    # Metrics
+    # 평가지표
     total_gt_cells = sum(len(r) for r in gt_rows)
     total_pred_cells = sum(len(r) for r in pred_rows)
     
     match_count = 0
     exact_match_count = 0
     
-    # 1. Bag of Cells comparison (Structure agnostic)
-    # Collect all cells
+    # 1. Bag of Cells 비교 (구조와 무관하게 내용 중심 비교)
+    # 모든 셀 데이터 수집
     gt_cells = [c.strip() for r in gt_rows for c in r if c.strip()]
     pred_cells = [c.strip() for r in pred_rows for c in r if c.strip()]
     
-    # Simple matching
-    # We remove matched items to avoid double counting
+    # 단순 매칭
+    # 중복 계산을 방지하기 위해 매칭된 항목은 제거함
     
     temp_pred = pred_cells.copy()
     
     for gt_cell in gt_cells:
-        # Find best match in pred
+        # 예측값 중에서 최적의 매칭 탐색
         best_match_idx = -1
         best_score = 0
         
@@ -41,15 +41,15 @@ def compare_tables(gt_rows, pred_rows):
                 best_score = score
                 best_match_idx = i
         
-        if best_match_idx != -1 and best_score > 0.8: # Threshold
+        if best_match_idx != -1 and best_score > 0.8: # 임계값 설정
             match_count += 1
             if best_score == 1.0:
                 exact_match_count += 1
             temp_pred.pop(best_match_idx)
             
-    # Precision / Recall
-    # Recall = Matched / Total GT
-    # Precision = Matched / Total Pred
+    # 정밀도(Precision) / 재현율(Recall) 계산
+    # Recall = 매칭된 수 / 전체 정답 셀 수
+    # Precision = 매칭된 수 / 전체 예측 셀 수
     
     recall = match_count / len(gt_cells) if gt_cells else 0
     precision = match_count / len(pred_cells) if pred_cells else 0
@@ -67,10 +67,10 @@ def compare_tables(gt_rows, pred_rows):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--gt', required=True, help="Ground Truth CSV")
-    parser.add_argument('--paddle', help="PaddleOCR Result CSV")
-    parser.add_argument('--easy', help="EasyOCR Result CSV")
-    parser.add_argument('--tess', help="Tesseract Result CSV")
+    parser.add_argument('--gt', required=True, help="정답 레이블(Ground Truth) CSV 경로")
+    parser.add_argument('--paddle', help="PaddleOCR 결과 CSV 경로")
+    parser.add_argument('--easy', help="EasyOCR 결과 CSV 경로")
+    parser.add_argument('--tess', help="Tesseract 결과 CSV 경로")
     
     args = parser.parse_args()
     
@@ -90,8 +90,8 @@ def main():
         pred = load_csv(args.tess)
         results['Tesseract'] = compare_tables(gt, pred)
         
-    print(f"Comparison for {Path(args.gt).name}:")
-    print(f"{'Framework':<12} | {'Prec':<6} | {'Recall':<6} | {'F1':<6} | {'Exact':<6}")
+    print(f"{Path(args.gt).name}에 대한 비교 결과:")
+    print(f"{'프레임워크':<12} | {'정밀도':<6} | {'재현율':<6} | {'F1':<6} | {'일치율':<6}")
     print("-" * 50)
     
     for name, stats in results.items():
