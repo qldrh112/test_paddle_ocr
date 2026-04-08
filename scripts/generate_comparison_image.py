@@ -38,7 +38,9 @@ TIMING_CSV   = ROOT / 'output/comparison/comparison_3_frameworks.csv'
 PRED_CSVS = {
     'EasyOCR':   ROOT / 'output/easyocr_results/cropped/easy_sheet1_crop.csv',
     'Tesseract': ROOT / 'output/tesseract_results/cropped/tess_sheet1_crop.csv',
-    'PaddleOCR': ROOT / 'output/paddleocr_results/cropped/paddle_sheet1_crop.csv',
+    # PP-StructureV2가 모든 행을 1행으로 병합한 원본 대신,
+    # 열별 정규식으로 복원한 fixed CSV를 사용 (reanalyze_paddle.py 참조)
+    'PaddleOCR': ROOT / 'output/paddleocr_results/fixed/paddle_sheet1_fixed.csv',
 }
 
 ENGINE_COLORS = {
@@ -56,11 +58,12 @@ ENGINE_COLORS_BGR = {
 
 OUTPUT_PATH = ROOT / 'output/comparison/ocr_comparison_image.png'
 
-# Fallback metrics from Walkthrough.md (used if CSV computation fails)
+# Fallback metrics (used if CSV computation fails)
+# PaddleOCR값은 reanalyze_paddle.py로 산출한 병합 셀 분리 후 재산출 결과
 FALLBACK_METRICS = {
-    'EasyOCR':   {'precision': 0.777, 'recall': 0.775, 'f1': 0.776},
-    'Tesseract': {'precision': 0.510, 'recall': 0.620, 'f1': 0.559},
-    'PaddleOCR': {'precision': 0.130, 'recall': 0.110, 'f1': 0.119},
+    'EasyOCR':   {'precision': 0.741, 'recall': 0.813, 'f1': 0.776},
+    'Tesseract': {'precision': 0.437, 'recall': 0.776, 'f1': 0.559},
+    'PaddleOCR': {'precision': 0.935, 'recall': 0.746, 'f1': 0.830},
 }
 
 
@@ -197,8 +200,8 @@ def get_paddleocr_bboxes(img_path):
     alpha = 0.72
     cv2.addWeighted(overlay, alpha, img, 1 - alpha, 0, img)
 
-    label1 = "Role: Layout / Table Detector"
-    label2 = "(PP-StructureV2)"
+    label1 = "* Metrics: cell-split corrected"
+    label2 = "(PP-StructureV2 merged -> 20 rows)"
     font = cv2.FONT_HERSHEY_SIMPLEX
     fs1, fs2 = 0.55, 0.48
     th1, th2 = 1, 1
@@ -231,7 +234,7 @@ def render_figure(metrics, times, confs, engine_images):
 
     # ── Top row: bbox overlay images ──────────────────────────────────────────
     paddle_role_note = {
-        'PaddleOCR': '(PP-StructureV2: layout detector)',
+        'PaddleOCR': '(cell-split corrected)',
     }
 
     for i, name in enumerate(engines):
